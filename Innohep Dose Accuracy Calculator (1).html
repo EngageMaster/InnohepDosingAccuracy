@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Treatment of DVT & PE - Accurate Dosing</title>
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/GpwHYW5/Icon.png">
+    <style type="text/css">
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #18465D;
+            font-family: Arial, sans-serif;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            background-color: #11354A;
+            padding: 3px;
+            border-radius: 5px;
+        }
+        .container {
+            width: 90%;
+            max-width: 450px;
+            padding: 5px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            margin: 5px auto;
+        }
+        .img_header {
+            background-image: url("https://i.ibb.co/Yj4RCSP/Header.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            width: 100%;
+            padding-top: 40%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .label {
+            margin-top: 5px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+            color: #18465D;
+            font-size: 0.8em;
+            display: block;
+        }
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+        .input-field {
+            margin-top: 5px;
+            height: 30px;
+            width: calc(100% - 20px);
+            padding: 5px;
+            font-size: small;
+            border: 1px solid #18465D;
+            border-radius: 5px;
+            margin: 0 auto;
+        }
+        .result-field {
+            margin-top: 5px;
+            height: 30px;
+            width: calc(100% - 10px);
+            padding: 5px;
+            font-size: small;
+            border: 1px solid #18465D;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            color: #18465D;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .button {
+            margin-top: 5px;
+            width: 100%;
+            height: 35px;
+            font-size: small;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #79CE31;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #66b82a;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #18465D;
+            text-align: center;
+            font-weight: bold;
+            background-color: #f0f0f0;
+            padding: 8px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Treatment of Deep-Vein Thrombosis<br>and Pulmonary Embolism</div>
+    <div class="container">
+        <div class="img_header"></div>
+        <form>
+            <div class="input-wrapper">
+                <label for="weight_kg" class="label">Patient Weight (KG)</label>
+                <label class="label" style="font-weight: normal; color: #11354A;">Enter a weight between 32 and 105 (no decimal, no comma, no point...)</label>
+                <input type="number" id="weight_kg" name="kg" class="input-field" placeholder="Enter a weight" required>
+            </div>
+            <label for="ui" id="UI_label" class="label">International Units (IU)</label>
+            <div id="UI" class="result-field">0</div>
+            <label for="ml" id="ML_Label" class="label">Injection Volume (ML)</label>
+            <div id="ML" class="result-field">0</div>
+            <button type="button" id="btn1" class="button">Calculate Dose</button>
+            <button type="button" id="btn_reset" class="button" style="background-color: #18465D; margin-top: 5px;">Reset Calculator</button>
+        </form>
+        <div class="footer">The recommended dose of innohep® is 175 IU anti-Xa/kg bodyweight s.c. once daily.</div>
+    </div>
+    <script>
+        const btn1 = document.getElementById('btn1');
+        const btnReset = document.getElementById('btn_reset');
+        const text1 = document.getElementById('weight_kg');
+        const text2 = document.getElementById('UI');
+        const text3 = document.getElementById('ML');
+
+        text1.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("btn1").click();
+            }
+        });
+
+        text1.addEventListener("input", function() {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+
+        btn1.onclick = function() {
+            let weight = parseInt(text1.value);
+            if (!Number.isInteger(weight) || weight < 32 || weight > 105) {
+                alert("Enter a weight between 32 and 105 (no decimal, no comma, no point...)");
+                text1.focus();
+                return;
+            }
+
+            const doseTable = [
+                { min: 32, max: 37, iu: '6,000', ml: '0.30' },
+                { min: 38, max: 42, iu: '7,000', ml: '0.35' },
+                { min: 43, max: 48, iu: '8,000', ml: '0.40' },
+                { min: 49, max: 54, iu: '9,000', ml: '0.45' },
+                { min: 55, max: 59, iu: '10,000', ml: '0.50' },
+                { min: 60, max: 65, iu: '11,000', ml: '0.55' },
+                { min: 66, max: 71, iu: '12,000', ml: '0.60' },
+                { min: 72, max: 77, iu: '13,000', ml: '0.65' },
+                { min: 78, max: 82, iu: '14,000', ml: '0.70' },
+                { min: 83, max: 88, iu: '15,000', ml: '0.75' },
+                { min: 89, max: 94, iu: '16,000', ml: '0.80' },
+                { min: 95, max: 99, iu: '17,000', ml: '0.85' },
+                { min: 100, max: 105, iu: '18,000', ml: '0.90' },
+            ];
+
+            const result = doseTable.find(entry => weight >= entry.min && weight <= entry.max);
+            text2.innerHTML = result ? result.iu : '0';
+            text3.innerHTML = result ? result.ml : '0';
+        }
+
+        btnReset.onclick = function() {
+            text1.value = '';
+            text2.innerHTML = '0';
+            text3.innerHTML = '0';
+            text1.focus();
+        }
+    </script>
+</body>
+</html>
