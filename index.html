@@ -5,133 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Treatment of DVT & PE - Accurate Dosing</title>
     <link rel="icon" type="image/x-icon" href="https://i.ibb.co/GpwHYW5/Icon.png">
-    <style type="text/css">
+    <!-- Gilroy Font (Note: Gilroy is a premium font and needs to be licensed) -->
+    <!-- You need to host the font files or use @font-face with the font files provided -->
+    <style>
+        /* Importing Gilroy Font */
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('fonts/Gilroy-Regular.woff2') format('woff2'),
+                 url('fonts/Gilroy-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('fonts/Gilroy-Bold.woff2') format('woff2'),
+                 url('fonts/Gilroy-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        /* General Styles */
         body, html {
-            height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #18465D;
-            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            font-family: 'Gilroy', sans-serif;
             width: 100%;
             box-sizing: border-box;
-            overflow: hidden;
+            color: #00131d; /* Black */
         }
-        .header {
+        /* Flex Container to Center Content Vertically */
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 60px;
-            color: white;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-            background-color: #11354A;
-            padding: 3px;
-            border-radius: 5px;
+            min-height: 100vh;
         }
+        /* Header */
+        .header {
+            background-color: #19475d; /* Midnight Blue */
+            color: #ffffff; /* White */
+            font-size: 2em; /* Adjusted for mobile friendliness */
+            font-weight: bold;
+            text-align: center;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+        }
+        /* Main Container */
         .container {
             width: 90%;
-            max-width: 450px;
-            padding: 5px;
+            max-width: 400px;
             background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            margin: 5px auto;
+            border: 1px solid #e5e7e8; /* Black 10% */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 19, 29, 0.1); /* Black with opacity */
+            overflow: hidden;
         }
+        /* Image Header */
         .img_header {
-            background-image: url("https://i.ibb.co/Yj4RCSP/Header.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
             width: 100%;
-            padding-top: 40%;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .label {
-            margin-top: 5px;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-weight: bold;
-            color: #18465D;
-            font-size: 0.8em;
+            height: auto;
             display: block;
         }
-        .input-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 100%;
+        /* Form Styles */
+        .form-content {
+            padding: 20px;
         }
-        .input-field {
-            margin-top: 5px;
-            height: 30px;
-            width: calc(100% - 20px);
-            padding: 5px;
-            font-size: small;
-            border: 1px solid #18465D;
-            border-radius: 5px;
-            margin: 0 auto;
+        .label {
+            font-weight: bold;
+            color: #19475d; /* Midnight Blue */
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        .sub-label {
+            font-weight: normal;
+            color: #33424a; /* Black 80% */
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .input-field, .result-field {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccd0d2; /* Black 20% */
+            border-radius: 4px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
         }
         .result-field {
-            margin-top: 5px;
-            height: 30px;
-            width: calc(100% - 10px);
-            padding: 5px;
-            font-size: small;
-            border: 1px solid #18465D;
-            border-radius: 5px;
-            background-color: #f0f0f0;
-            color: #18465D;
-            display: inline-block;
-            margin-bottom: 10px;
+            background-color: #f3f8e7; /* Spring Green 10% */
+            color: #00131d; /* Black */
         }
+        /* Button Styles */
         .button {
-            margin-top: 5px;
             width: 100%;
-            height: 35px;
-            font-size: small;
+            padding: 15px;
+            font-size: 1em;
             font-weight: bold;
-            color: #ffffff;
-            background-color: #79CE31;
-            border-radius: 5px;
+            color: #ffffff; /* White */
+            background-color: #8cb811; /* Spring Green */
             border: none;
+            border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-bottom: 10px;
         }
         .button:hover {
-            background-color: #66b82a;
-            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            background-color: #97bf28; /* Spring Green 90% */
         }
+        .button-secondary {
+            background-color: #19475d; /* Midnight Blue */
+        }
+        .button-secondary:hover {
+            background-color: #192a33; /* Black 90% */
+        }
+        /* Footer */
         .footer {
-            margin-top: 10px;
-            font-size: 0.8em;
-            color: #18465D;
+            background-color: #f3f8e7; /* Spring Green 10% */
+            padding: 15px 20px;
+            font-size: 0.9em;
+            color: #4c5960; /* Black 70% */
             text-align: center;
-            font-weight: bold;
-            background-color: #f0f0f0;
-            padding: 8px;
-            border-radius: 5px;
+            border-top: 1px solid #e5e7e8; /* Black 10% */
+        }
+        /* Responsive Media Query */
+        @media (max-height: 700px) {
+            .header, .footer {
+                padding: 10px 15px;
+            }
+            .form-content {
+                padding: 15px;
+            }
+            .button {
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">Treatment of Deep-Vein Thrombosis<br>and Pulmonary Embolism</div>
     <div class="container">
-        <div class="img_header"></div>
-        <form>
-            <div class="input-wrapper">
+        <div class="header">Treatment of Deep-Vein Thrombosis and Pulmonary Embolism</div>
+        <img src="https://i.ibb.co/Yj4RCSP/Header.png" alt="Header Image" class="img_header">
+        <div class="form-content">
+            <form>
                 <label for="weight_kg" class="label">Patient Weight (KG)</label>
-                <label class="label" style="font-weight: normal; color: #11354A;">Enter a weight between 32 and 105 (no decimal, no comma, no point...)</label>
-                <input type="number" id="weight_kg" name="kg" class="input-field" placeholder="Enter a weight" required>
-            </div>
-            <label for="ui" id="UI_label" class="label">International Units (IU)</label>
-            <div id="UI" class="result-field">0</div>
-            <label for="ml" id="ML_Label" class="label">Injection Volume (ML)</label>
-            <div id="ML" class="result-field">0</div>
-            <button type="button" id="btn1" class="button">Calculate Dose</button>
-            <button type="button" id="btn_reset" class="button" style="background-color: #18465D; margin-top: 5px;">Reset Calculator</button>
-        </form>
+                <span class="sub-label">Enter a weight between 32 and 105 (no decimal, no comma, no point...)</span>
+                <input type="number" id="weight_kg" name="kg" class="input-field" placeholder="Enter patient weight" required>
+                
+                <label for="ui" id="UI_label" class="label">International Units (IU)</label>
+                <div id="UI" class="result-field">0</div>
+                
+                <label for="ml" id="ML_Label" class="label">Injection Volume (ML)</label>
+                <div id="ML" class="result-field">0</div>
+                
+                <button type="button" id="btn1" class="button">Calculate Dose</button>
+                <button type="button" id="btn_reset" class="button button-secondary">Reset Calculator</button>
+            </form>
+        </div>
         <div class="footer">The recommended dose of innohep® is 175 IU anti-Xa/kg bodyweight s.c. once daily.</div>
     </div>
     <script>
